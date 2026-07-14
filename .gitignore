@@ -216,3 +216,12 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Media
+media/
+
+# VS code
+.vscode/
+
+# Windows
+Thumbs.db
