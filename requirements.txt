@@ -4,10 +4,12 @@ django-environ==0.14.0
 django-extensions==4.1
 django-filter==26.1
 django-htmx==1.28.0
+django-phonenumber-field==8.4.0
 django-taggit==6.1.0
 djangorestframework==3.17.1
 gunicorn==26.0.0
 packaging==26.2
+phonenumbers==9.0.34
 pillow==12.3.0
 psycopg==3.3.4
 psycopg-binary==3.3.4
