@@ -20,7 +20,7 @@ class CustomUserAdmin(UserAdmin):
         "is_staff",
         "is_active",
     )
-    list_filter = ("is_staff", "is_active")
+    list_filter = ("is_staff", "is_active", "is_email_verified")
     fieldsets = (
         (None, {"fields": ("username", "email", "password")}),
         (
@@ -32,6 +32,7 @@ class CustomUserAdmin(UserAdmin):
                     "avatar",
                     "bio",
                     "phone_number",
+                    "job_title",
                     "website",
                     "facebook_url",
                     "x_url",
@@ -59,5 +60,5 @@ class CustomUserAdmin(UserAdmin):
             },
         ),
     )
-    search_fields = ("username", "email")
+    search_fields = ("username", "email", "phonenumber")
     ordering = ("username",)

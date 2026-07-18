@@ -7,7 +7,9 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
 ]
 
-THIRD_PARTY_APPS = []
+THIRD_PARTY_APPS = [
+    "phonenumber_field",
+]
 
 LOCAL_APPS = [
     "apps.core.apps.CoreConfig",

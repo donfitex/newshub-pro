@@ -18,9 +18,9 @@ class TimeStampedModel(models.Model):
         abstract = True
 
 
-class UUIDModel(models.Model):
+class UUIDPrimaryKeyMixin(models.Model):
     """
-    An abstract base class model that provides a UUID field as the primary key.
+    Reusable mixin that provides a UUID field as the primary key.
     """
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -29,9 +29,20 @@ class UUIDModel(models.Model):
         abstract = True
 
 
-class BaseModel(UUIDModel, TimeStampedModel):
+class SoftDeleteMixin(models.Model):
     """
-    An abstract base class model that combines UUIDModel and TimeStampedModel.(base model inherited by all models in the project)
+    Reusable mixin that provides a soft delete functionality.
+    """
+
+    is_deleted = models.BooleanField(default=False)
+
+    class Meta:
+        abstract = True
+
+
+class BaseModel(UUIDPrimaryKeyMixin, TimeStampedModel):
+    """
+    An abstract base class model that combines UUIDPrimaryKeyMixin and TimeStampedModel.(base model inherited by all models in the project)
     """
 
     class Meta:
