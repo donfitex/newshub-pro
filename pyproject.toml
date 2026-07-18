@@ -24,4 +24,4 @@ ignore = [
 ]
 
 [tool.ruff.lint.per-file-ignores]
-"config/settings/*.py" = ["F403", "F405", "E402"]
+"config/settings/*.py" = ["F403", "F401", "F405", "E402", "I001"]

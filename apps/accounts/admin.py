@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from .models import User
+from .models import Profile, User
 
 
 # Register your models here.
@@ -20,45 +20,23 @@ class CustomUserAdmin(UserAdmin):
         "is_staff",
         "is_active",
     )
-    list_filter = ("is_staff", "is_active", "is_email_verified")
-    fieldsets = (
-        (None, {"fields": ("username", "email", "password")}),
-        (
-            "Personal Info",
-            {
-                "fields": (
-                    "first_name",
-                    "last_name",
-                    "avatar",
-                    "bio",
-                    "phone_number",
-                    "job_title",
-                    "website",
-                    "facebook_url",
-                    "x_url",
-                    "linkedin_url",
-                    "instagram_url",
-                )
-            },
-        ),
-        ("Permissions", {"fields": ("is_staff", "is_active")}),
-        ("Important Dates", {"fields": ("last_login", "date_joined")}),
-    )
-    add_fieldsets = (
-        (
-            None,
-            {
-                "classes": ("wide",),
-                "fields": (
-                    "username",
-                    "email",
-                    "password1",
-                    "password2",
-                    "is_staff",
-                    "is_active",
-                ),
-            },
-        ),
-    )
-    search_fields = ("username", "email", "phonenumber")
+
+    list_filter = ("is_staff", "is_active")
+
+    search_fields = ("username", "email")
     ordering = ("username",)
+
+
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = (
+        "user",
+        "phone_number",
+        "job_title",
+        "is_email_verified",
+    )
+
+    search_fields = (
+        "user__username",
+        "phone_number",
+    )
