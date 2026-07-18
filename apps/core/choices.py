@@ -1,3 +1,3 @@
 """
-    Reusable model choices for the NewsHub project.
+Reusable model choices for the NewsHub project.
 """
