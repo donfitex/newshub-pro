@@ -14,11 +14,9 @@ class RegisterView(CreateView):
     template_name = "accounts/register.html"
     success_url = reverse_lazy("accounts:login")
 
-    def form_invalid(self, form):
+    def form_valid(self, form):
         response = super().form_valid(form)
-
         messages.success(self.request, "Account created successfully. Please log in.")
-
         return response
 
 
@@ -26,9 +24,8 @@ class LoginView(DjangoLoginView):
     authentication_form = LoginForm
     template_name = "accounts/login.html"
 
-    def form_invalid(self, form):
+    def form_valid(self, form):
         messages.success(self.request, f"Welcome back, {form.get_user().username}!")
-
         return super().form_valid(form)
 
 

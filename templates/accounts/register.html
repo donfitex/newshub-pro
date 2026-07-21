@@ -1,0 +1,24 @@
+{% extends "accounts/base_auth.html" %}
+
+{% block title %}
+Register | NewsHub Pro
+{% endblock %}
+
+{% block auth_content %}
+<div class="card shadow-sm border-0">
+  <div class="card-body p-5">
+    <h2 class="text-center mb-4" >Create account</h2>
+
+    <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-success w-100" type="submit">Register</button>
+  </form>
+  <hr>
+  <p class="text-center">
+    Already have an account?
+    <a href="{% url 'accounts:login' %}">Login</a>
+  </p>
+  </div>
+</div>
+{% endblock %}
