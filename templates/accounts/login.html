@@ -1,26 +1,47 @@
-{% extends "accounts/base_auth.html" %}
+{% extends "base.html" %}
 
-{% block title %}
-Login | NewsHub Pro
-{% endblock %}
+{% block title %}Login - NewsHub Pro{% endblock %}
 
-{% block auth_content %}
-<div class="card shadow-sm border-0">
-  <div class="card-body p-5">
-    <h2 class="text-center mb-4">
-      Welcome Back
-    </h2>
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-body p-5">
+                <h2 class="card-title text-center mb-4">Log In</h2>
 
-    <form method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button class="btn btn-primary w-100" type="submit">Log in</button>
-    </form>
-    <hr>
-    <p class="text-center">
-      Don't have an account?
-      <a href="{% url 'accounts:register' %}">Register</a>
-    </p>
-  </div>
+                <form method="post" novalidate>
+                    {% csrf_token %}
+
+                    {% for field in form %}
+                        <div class="mb-3">
+                            {{ field.label_tag }}
+                            {% if field.field.widget.input_type == 'hidden' %}
+                                {{ field }}
+                            {% else %}
+                                {{ field }}
+                                {% if field.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {% for error in field.errors %}
+                                            <span>{{ error }}</span><br>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                {% if field.help_text %}
+                                    <small class="form-text text-muted d-block mt-1">{{ field.help_text|safe }}</small>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+
+                    <button type="submit" class="btn btn-primary w-100">Log In</button>
+                </form>
+
+                <div class="mt-4 text-center">
+                    <p>Don't have an account? <a href="{% url 'accounts:register' %}" class="text-decoration-none">Create one</a></p>
+                    <p><a href="{% url 'accounts:password_reset' %}" class="text-decoration-none">Forgot your password?</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

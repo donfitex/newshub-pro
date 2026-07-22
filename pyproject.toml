@@ -2,9 +2,9 @@
 line-length = 88
 target-version = ['py312']
 
-[tool.sort]
+[tool.isort]
 profile = 'black'
-line-length = 88
+line_length = 88
 
 [tool.ruff]
 line-length = 88
@@ -14,7 +14,6 @@ target-version = 'py312'
 select = [
     "E",
     "F",
-    "I",
     "UP",
     "B",
 ]

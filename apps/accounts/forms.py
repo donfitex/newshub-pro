@@ -20,15 +20,44 @@ class RegistrationForm(UserCreationForm):
 
     def clean_email(self):
         email = self.cleaned_data["email"].lower()
-
         if User.objects.filter(email=email).exists():
-            raise forms.ValidationError("An account with this email exists.")
+            raise forms.ValidationError("An account with this email already exists.")
         return email
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        placeholders = {
+            "username": "Enter your username",
+            "email": "Enter a valid email address",
+            "first_name": "Enter your first name",
+            "last_name": "Enter your last name",
+            "password1": "Enter your password",
+            "password2": "Confirm your password",
+        }
+
+        for field_name, field in self.fields.items():
+            field.widget.attrs.update({"class": "form-control"})
+            if field_name in placeholders:
+                field.widget.attrs.update({"placeholder": placeholders[field_name]})
 
 
 class LoginForm(AuthenticationForm):
-    username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields["username"].widget.attrs.update(
+            {
+                "class": "form-control",
+                "placeholder": "Enter your username",
+            }
+        )
+        self.fields["password"].widget.attrs.update(
+            {
+                "class": "form-control",
+                "placeholder": "Enter your password",
+            }
+        )
 
 
 class ProfileForm(forms.ModelForm):
@@ -46,8 +75,18 @@ class ProfileForm(forms.ModelForm):
             "instagram_url",
         )
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs.update({"class": "form-control"})
+
 
 class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ("first_name", "last_name", "email")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs.update({"class": "form-control"})
